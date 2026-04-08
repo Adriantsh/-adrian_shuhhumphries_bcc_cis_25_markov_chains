@@ -18,15 +18,15 @@ string joinWords(const string words[], int startIndex, int count)
 
 int readWordsFromFile(string filename, string words[], int maxWords)
 {
-    ifstream = inputFile;
-    inputFile.open(filename)
+    ifstream inputFile;
+    inputFile.open(filename);
 
     if (inputFile.is_open())
     {
         int count = 0;
         while (count < maxWords && inputFile >> words[count])
             count++;
-        inupFile.close();
+        inputFile.close();
         return count;
     }
     else
@@ -65,7 +65,7 @@ string getRandomSuffix(const string prefixes[], const string suffixes[],
 
     int pick = rand() % matchCount;
 
-    int matchCount = 0;
+    matchCount = 0;
     for (int i = 0; i < chainSize; i++)
     {
         if (prefixes[i] == currentPrefix)
