@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include <fstream>
 #include "markov.h"
 using namespace std;
@@ -69,9 +70,12 @@ string getRandomSuffix(const string prefixes[], const string suffixes[],
     for (int i = 0; i < chainSize; i++)
     {
         if (prefixes[i] == currentPrefix)
-            matchCount++;
-        if (matchCount == pick)
-            return suffixes[i];
+        {
+            if (matchCount == pick)
+                return suffixes[i];
+            else
+                matchCount++;
+        }
     }
     return "";
 }

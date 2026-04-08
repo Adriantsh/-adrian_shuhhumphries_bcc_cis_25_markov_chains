@@ -1,3 +1,1 @@
-This is a test file with some text. This is the second sentence of that file. 
-It is important that certain words in this file are repeated more than once. This file has text. The text talks about the file. 
-Many words are repeated, such the words "file" and "text" and "file" and also other words. This file is used to test things.
+This sentence has five words. This sentence has more than five words.
