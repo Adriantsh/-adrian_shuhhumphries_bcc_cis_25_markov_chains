@@ -1,5 +1,4 @@
 #include <string>
-#include <iostream>
 #include <fstream>
 #include "markov.h"
 using namespace std;

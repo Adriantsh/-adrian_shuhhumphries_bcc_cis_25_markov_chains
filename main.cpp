@@ -8,15 +8,25 @@ int main()
 {   
     srand(time(0));
 
-    string words[1000];
-    int count = readWordsFromFile("test.txt", words, 1000);
+    string filename;
+    int order, numWords;
 
-    string prefixes[10000], suffixes[10000];
-    int chainSize = buildMarkovChain(words, count, 1, prefixes, suffixes, 10000);
+    cout << "Enter the file name: ";
+    cin >> filename;
+    cout << "Enter the order of the markov chain: (1, 2, or 3) ";
+    cin >> order;
+    cout << "Enter the number of words to generate: ";
+    cin >> numWords;
 
-    string output = generateText(prefixes, suffixes, chainSize, 1, 20);
-    cout << output << endl;
+    const int ARR_SIZE = 100000;
+    string words[ARR_SIZE], 
+           prefixes[ARR_SIZE],
+           suffixes[ARR_SIZE];
 
+    int count = readWordsFromFile(filename, words, ARR_SIZE);
+    int chainSize = buildMarkovChain(words, count, order, prefixes, suffixes, ARR_SIZE);
+    string output = generateText(prefixes, suffixes, chainSize, order, numWords);
 
+    cout << "Generated text:\n" << output << endl;
     return 0;
 }
