@@ -1,8 +1,11 @@
+// Functions for generating markov chain text
 #include <string>
 #include <fstream>
 #include "markov.h"
 using namespace std;
 
+// Takes an array of words and outputs a string of those words
+// seperated by spaces.
 string joinWords(const string words[], int startIndex, int count)
 {
     string result;
@@ -16,6 +19,8 @@ string joinWords(const string words[], int startIndex, int count)
     return result;
 }
 
+// Reads words from a file to an array of size maxWords
+// Outputs number of words read
 int readWordsFromFile(string filename, string words[], int maxWords)
 {
     ifstream inputFile;
@@ -33,6 +38,10 @@ int readWordsFromFile(string filename, string words[], int maxWords)
         return -1;
 }
 
+// Fills two arrays, one of prefixes:
+// strings of length order that appear in the text
+// and suffixes:
+// the word following the corresponding prefix
 int buildMarkovChain(const string words[], int numWords, int order,
                      string prefixes[], string suffixes[],
                      int maxChainSize)
@@ -50,6 +59,8 @@ int buildMarkovChain(const string words[], int numWords, int order,
     return count;
 }
 
+// Get a random suffix by counting the number of matching prefixes
+// and looping through them, stopping on a random one
 string getRandomSuffix(const string prefixes[], const string suffixes[],
                             int chainSize, string currentPrefix)
 {
@@ -79,12 +90,15 @@ string getRandomSuffix(const string prefixes[], const string suffixes[],
     return "";
 }
 
+// Chooses a random prefix
 string getRandomPrefix(const string prefixes[], int chainSize)
 {
     int index = rand() % chainSize;
     return prefixes[index];
 }
 
+// Generates the text by repeatedly finding random suffixes to the preceding
+// prefix.
 string generateText(const string prefixes[], const string suffixes[],
                          int chainSize, int order, int numWords)
 {
@@ -95,6 +109,7 @@ string generateText(const string prefixes[], const string suffixes[],
     int wordIndex = 0;                                                                                                                                                                 
     string temp = "";
 
+    // Break the first prefix into an array.
     for (int i = 0; i < currentPrefix.length(); i++) 
     {                                                                                                                                 
         if (currentPrefix[i] == ' ') 
@@ -110,6 +125,8 @@ string generateText(const string prefixes[], const string suffixes[],
     }
     currentWords[wordIndex] = temp;
 
+    // Repeatedly generate random suffixes to current prefix
+    // Last suffix gets added to the end of the current prefix
     for (int i = 0; i < numWords - order; i++)
     {
         string newWord = getRandomSuffix(prefixes, suffixes, chainSize, currentPrefix);
@@ -121,6 +138,7 @@ string generateText(const string prefixes[], const string suffixes[],
 
         for (int j = 0; j < order - 1; j++)
             currentWords[j] = currentWords[j + 1];
+
 
         currentWords[order - 1] = newWord;
 
